@@ -49,4 +49,5 @@ end
 
 # TODO restart mcollective if service is defined
 # TODO install from plugin package
-# TODO generate certificates
+
+include_recipe 'mcollective-x509-security::certificates'
