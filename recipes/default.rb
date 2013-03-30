@@ -19,24 +19,7 @@
 
 include_recipe 'mcollective::common'
 
-
-## Install plugin from github
-# "https://raw.github.com/VendaTech/mcollective-x509-security/master/mco-2.x/security/"
-url = [ node['mcollective-x509-security']['github']['url_base'],
-        node['mcollective-x509-security']['github']['revision'],
-        node['mcollective-x509-security']['mco_version'] >= 2 ? 'mco-2.x' : 'mco-1.2.x',
-      ].join('/')
-
-# remote_file
-%w{rb ddl}.each do |ext|
-  remote_file "#{node['mcollective']['site_plugins']}/security/x509.#{ext}" do
-    source "#{url}/security/x509.#{ext}"
-    mode 00755
-    owner "root"
-    group "root"
-    action :create
-  end
-end
+include_recipe 'mcollective-x509-security::install_from_github'
 
 template "#{node['mcollective']['plugin_conf']}/x509.cfg" do
   source "x509.cfg.erb"
