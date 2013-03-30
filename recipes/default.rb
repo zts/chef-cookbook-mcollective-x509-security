@@ -38,7 +38,15 @@ url = [ node['mcollective-x509-security']['github']['url_base'],
   end
 end
 
+template "#{node['mcollective']['plugin_conf']}/x509.cfg" do
+  source "x509.cfg.erb"
+  variables :x509 => node['mcollective-x509-security']['certs']
+  owner "root"
+  group "root"
+  mode 00755
+  action :create
+end
+
 # TODO restart mcollective if service is defined
 # TODO install from plugin package
-# TODO manage plugin configuration
 # TODO generate certificates
