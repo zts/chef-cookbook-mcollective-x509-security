@@ -16,3 +16,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+include_recipe 'mcollective::common'
+
+
+## Install plugin from github
+# TODO parameterise revision
+# TODO determine correct version of plugin to install
+source_url_base = "https://raw.github.com/VendaTech/mcollective-x509-security/master/mco-2.x/security/"
+
+# remote_file
+%w{rb ddl}.each do |ext|
+  remote_file "#{node['mcollective']['site_plugins']}/security/x509.#{ext}" do
+    source "#{source_url_base}/x509.#{ext}"
+    mode 00755
+    owner "root"
+    group "root"
+    action :create
+  end
+end
+
+# TODO restart mcollective if service is defined
+# TODO install from plugin package
+# TODO manage plugin configuration
+# TODO generate certificates
