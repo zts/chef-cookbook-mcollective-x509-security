@@ -28,7 +28,6 @@ x509_certificate "mco-server-#{node['fqdn']}" do
   type 'server'
   key certs['server_key']
   certificate certs['server_cert']
-  cacertificate certs['ca_cert']
 end
 
 x509_certificate "mco-client-#{node['fqdn']}" do
@@ -38,3 +37,6 @@ x509_certificate "mco-client-#{node['fqdn']}" do
   certificate certs['client_cert']
 end
 
+x509_ca_certificate "MCollective-CA" do
+  cacertificate certs['ca_cert']
+end
